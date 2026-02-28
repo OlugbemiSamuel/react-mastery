@@ -5,9 +5,10 @@ interface ChatInputProps {
     onKeyDown: (event:React.KeyboardEvent<HTMLInputElement>) => void;
     input: string;
     disable:boolean;
+    clearMessage: () => void
 }
 
-const ChatInput = ({sendMessage, onChange, onKeyDown, input, disable}: ChatInputProps) => {
+const ChatInput = ({sendMessage, onChange, onKeyDown, input, disable, clearMessage}: ChatInputProps) => {
   
 
   return (
@@ -30,6 +31,15 @@ const ChatInput = ({sendMessage, onChange, onKeyDown, input, disable}: ChatInput
         disabled={disable}
       >
         Send
+      </button>
+      <button
+    
+        className="bg-[#871919] text-white py-2.5 px-5 
+                cursor-pointer text-[15px] ml-10 rounded-[10px] disabled:bg-green-200 disabled:cursor-not-allowed"
+        onClick={clearMessage}
+        // disabled={disable}
+      >
+        Clear chats
       </button>
     </div>
   );

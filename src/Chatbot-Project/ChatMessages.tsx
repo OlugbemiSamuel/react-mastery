@@ -44,18 +44,20 @@ const ChatMessages = ({ messages, isBotTyping }: ChatMessagesProps) => {
                 initial={{ opacity: 0, y: 10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                className={`max-w-[60%] md:max-w-[40%] p-4 rounded-2xl shadow-lg leading-relaxed ${
+                className={`max-w-[60%] md:max-w-sm px-8 m-0 py-3.75 wrap-break-word relative rounded-xl shadow-lg leading-relaxed ${
                   isUser
-                    ? "bg-[#f4f4f5] text-gray-800 rounded-tr-none self-end shadow-blue-500/10"
-                    : "bg-white text-gray-800 border border-gray-200 shadow-sm rounded-tl-none self-start "
+                    ? "bg-[#f4f4f5] text-gray-800 roundedtr-none selfend shadow-blue-500/10"
+                    : "bg-white text-gray-800 border border-gray-200 shadow-sm rounded-tl-none selfstart "
                 }`}
               >
-                <p className="text-[15px] leading-relaxed selection:bg-blue-300/30 ">
+                <p className="text-[15px] mb-4  leading-relaxed selection:bg-blue-300/30 ">
                   {m.text}
                 </p>
 
+              
+
                 <span
-                  className={`text-[10px] mt-1 block opacity-50 ${isUser ? "text-right" : "text-left"}`}
+                  className={`text-[10px] mt-5 block opacity-50 absolute bottom-2 right-3`}
                 >
                   {new Date(m.timestamp).toLocaleTimeString([], {
                     hour: "2-digit",
@@ -66,11 +68,12 @@ const ChatMessages = ({ messages, isBotTyping }: ChatMessagesProps) => {
               
       <button 
         onClick={() => navigator.clipboard.writeText(m.text)}
-        className="opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+        className="absolute top-2 right-1 transition-opacity cursor-pointer"
         title="Copy message"
       >
-        <img src={copyIcon} className="w-3 h-3 grayscale hover:grayscale-0" alt="copy" />
+        <img src={copyIcon} className="w-3 h-3 grayscale hover:bg-black/5" alt="copy" />
       </button>
+
     
               </motion.div>
             </div>

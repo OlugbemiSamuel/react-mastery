@@ -21,7 +21,7 @@ const useChatBot = () => {
       return "Projects are the best way to learn. Are we working on the Chatbot?";
     if (input.includes("time"))
       return `The current time is ${new Date().toLocaleTimeString()}`;
-    return "I'm sorry, I'm still learning. I can greet you, tell the time, or talk about projects!";
+    return "I'm sorry, I'm still learning. I can greet you, tell the time, or talk about chatbot projects!";
   };
 
   useEffect(() => {

@@ -1,13 +1,14 @@
 import "./App.css";
+import ChatHeader from "./Chatbot-Project/ChatHeader";
 import ChatInput from "./Chatbot-Project/ChatIpinut";
 import ChatMessages from "./Chatbot-Project/ChatMessages";
-import MessageCounter from "./Chatbot-Project/MessageCounter";
+// import MessageCounter from "./Chatbot-Project/MessageCounter";
 import useChatBot from "./hooks/useChatBot";
 
 function App() {
   const {
     messages,
-    input,
+    userInput,
     isBotTyping,
     handleSendMessage,
     handleInputChange,
@@ -17,17 +18,20 @@ function App() {
 
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col max-w-3xl mx-auto">
+      <ChatHeader clearChats={handleClearChats} />
+     
+      <ChatMessages isBotTyping={isBotTyping} messages={messages} />
+
       <ChatInput
         disable={isBotTyping}
-        input={input}
+        input={userInput}
         onKeyDown={handleKeyDown}
         onChange={handleInputChange}
         sendMessage={handleSendMessage}
         clearMessage={handleClearChats}
       />
 
-      <ChatMessages messages={messages} />
       {/* <MessageCounter count={messages.length}/> */}
     </div>
   );

@@ -3,7 +3,7 @@ import robot from "../assets/chatbot robot.png";
 
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
-import type { Message } from "../types/chat";
+import type { Message } from "../../types/chat";
 import copyIcon from '../assets/copy-icon.svg'
 
 export interface ChatMessagesProps {

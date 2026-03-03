@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getItem, removeItem, saveItem } from "../utils/LocalStorage";
-import type { Message } from "../types/chat";
+import { getItem, removeItem, saveItem } from "../../utils/LocalStorage";
+import type { Message } from "../../types/chat";
 
 const useChatBot = () => {
   const [messages, setMessages] = useState<Message[]>(() => {

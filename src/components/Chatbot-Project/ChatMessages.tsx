@@ -1,10 +1,10 @@
-import user from "../assets/chatbot user.png";
-import robot from "../assets/chatbot robot.png";
+import user from "../../assets/chatbot user.png";
+import robot from "../../assets/chatbot robot.png";
 
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import type { Message } from "../../types/chat";
-import copyIcon from '../assets/copy-icon.svg'
+import copyIcon from '../../assets/copy-icon.svg'
 
 export interface ChatMessagesProps {
   messages: Message[];
@@ -44,7 +44,7 @@ const ChatMessages = ({ messages, isBotTyping }: ChatMessagesProps) => {
                 initial={{ opacity: 0, y: 10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                className={`max-w-[60%] md:max-w-sm px-8 m-0 py-3.75 wrap-break-word relative rounded-xl shadow-lg leading-relaxed ${
+                className={`max-w-[60%] md:max-w- px-8 m-0 py-3.75 wrap-break-word relative rounded-xl shadow-lg leading-relaxed ${
                   isUser
                     ? "bg-[#f4f4f5] text-gray-800 roundedtr-none selfend shadow-blue-500/10"
                     : "bg-white text-gray-800 border border-gray-200 shadow-sm rounded-tl-none selfstart "

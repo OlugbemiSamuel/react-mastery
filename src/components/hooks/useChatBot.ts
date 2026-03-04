@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { getItem, removeItem, saveItem } from "../../utils/LocalStorage";
 import type { Message } from "../../types/chat";
 
+
+// import axios from "axios";
+
+
 const useChatBot = () => {
   const [messages, setMessages] = useState<Message[]>(() => {
     return getItem("message") || [];
@@ -13,23 +17,42 @@ const useChatBot = () => {
     saveItem("message", messages);
   }, [messages]);
 
-  const getBotResponse = (userInput: string) => {
-    const input = userInput.toLowerCase();
-    if (input.includes("hello") || input.includes("hi"))
-      return "Hello! How can I help you build today?";
-    if (input.includes("project"))
-      return "Projects are the best way to learn. Are we working on the Chatbot?";
-    if (input.includes("time"))
-      return `The current time is ${new Date().toLocaleTimeString()}`;
-    return "I'm sorry, I'm still learning. I can greet you, tell the time, or talk about chatbot projects!";
-  };
+const getBotResponse = async (userInput: string): Promise<string> => {
+ 
+  try {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${import.meta.env.VITE_GROQ_KEY}`,
+
+      },
+      body: JSON.stringify({
+      model: "llama-3.1-8b-instant",
+        max_tokens: 300,
+        messages: [{ role: "user", content: userInput }],
+      }),
+    });
+    const data = await response.json();
+    if(data.error){
+      console.log(`API ERROR: `, data.error.message)
+      return 'sorry somehting went wrong'
+    }
+    console.log("Full response from Anthropic:", data); // ADD THIS
+    return data.choices[0].message.content;
+  } catch (error) {
+    console.log(error);
+    return "Sorry, I couldn't connect right now. Try again!";
+  }
+};
 
   useEffect(() => {
     if (messages.length > 0 && messages.at(-1)?.sender === "user") {
-      const timer = setTimeout(() => {
+      const timer = setTimeout( async() => {
+        const botText = await getBotResponse(messages.at(-1)?.text || '')
         const newBotMessage: Message = {
           sender: "robot",
-          text: getBotResponse(messages.at(-1)?.text || ""),
+          text: botText,
           id: crypto.randomUUID(),
           timestamp: Date.now(),
         };
@@ -67,6 +90,7 @@ const useChatBot = () => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if(e.target.value.length > 5000) return
     setUserInput(e.target.value);
   };
 

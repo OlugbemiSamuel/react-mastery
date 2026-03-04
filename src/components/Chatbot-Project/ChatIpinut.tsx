@@ -40,7 +40,13 @@ const ChatInput = ({
             className="flex-1 py-4 bg-transparent  outline-none
                        text-[15px] placeholder:text-gray-500  text-gray-900 min-w-0 "
           />
-
+          {input.length > 800 && (
+            <span
+              className={`text-xs ${input.length > 450 ? "text-red-500" : "text-gray-500"}`}
+            >
+              {input.length}/1000
+            </span>
+          )}
           <button
             className=" p-2 bg-green-600 text-white rounded-xl transition-all 
                       hover:bg-green-700 active:scale-95 

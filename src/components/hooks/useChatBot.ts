@@ -28,7 +28,7 @@ const getBotResponse = async (userInput: string): Promise<string> => {
 
       },
       body: JSON.stringify({
-      model: "llama-3.1-8b-instant",
+      model: "openai/gpt-oss-20b",
         max_tokens: 300,
         messages: [{ role: "user", content: userInput }],
       }),
@@ -38,7 +38,7 @@ const getBotResponse = async (userInput: string): Promise<string> => {
       console.log(`API ERROR: `, data.error.message)
       return 'sorry somehting went wrong'
     }
-    console.log("Full response from Anthropic:", data); // ADD THIS
+    console.log("Full response from Groq:", data); // ADD THIS
     return data.choices[0].message.content;
   } catch (error) {
     console.log(error);
